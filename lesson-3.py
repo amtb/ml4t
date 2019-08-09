@@ -17,12 +17,22 @@ def load_csv(ticker):
   # print(data_frame.head()) # prints head
   return data_frame
 
+def plot_data(df, title, x_label = 'Dates', y_label = 'Values'):
+  df.plot()
+  plt.title(title)
+  plt.xlabel(x_label)
+  plt.ylabel(y_label)
+  plt.show()
+
+def normalize_data(df):
+  return df / df.iloc[0, :]
+
 if __name__ == "__main__":
   start = '2019-03-01'
-  end   = '2019-03-31'
+  end   = '2019-06-30'
 
-  jan = range(start, end)
-  df = new_frame(jan)
+  q2 = range(start, end)
+  df = new_frame(q2)
 
   for ticker in ['GOOG', 'AMZN', 'QQQ', 'VOO']:
     data = load_csv(ticker)
@@ -42,5 +52,7 @@ if __name__ == "__main__":
   print('Rows & columns')
   print(df.loc['2019-02-12':'2019-02-18', ['GOOG', 'AMZN']])
 
-  df.plot()
-  plt.show()
+  # plot_data(df, 'Q2')
+  
+  normalized_data = normalize_data(df)
+  plot_data(normalized_data, 'Normalized Q2')
